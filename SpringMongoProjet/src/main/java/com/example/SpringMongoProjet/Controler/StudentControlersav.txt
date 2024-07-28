@@ -14,7 +14,8 @@ import com.example.SpringMongoProjet.Entity.Student;
 import com.example.SpringMongoProjet.Service.StudentServices;
 
 
- 
+
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -27,45 +28,33 @@ private StudentServices studentServices;
 @PostMapping(value = "/save")
  
 
- public String saveStudent(@RequestBody Student students)
+ private String saveStudent(@RequestBody Student students)
 {
     studentServices.saveorUpdate(students);
-    // Student savueUser = new Student();
-
-     
-   //return students.get._id() ;
- return  students.getId() ;
+    return students.get_id() ;
 }
-@GetMapping("/getall")
-public Iterable<Student>getStudents()
+@GetMapping(value="/getAll")
+private Iterable<Student>getStudents()
    { 
     return studentServices.ListAll();
 }
 
-    @PutMapping("/edit/{id}")
-public Student update(@RequestBody Student student,@PathVariable(name="id")String id)
-   { student.setId(id);
+    @PutMapping(value= "/edit/{id}")
+private  Student update(@RequestBody Student student,@PathVariable(name="id")String _id)
+   { student.set_id(_id);
    studentServices.saveorUpdate(student);
    return student;
 }
 
 @DeleteMapping("/delete/{id}")
-public  void deleteStudent(@PathVariable("id") String id)
+private  void deleteStudent(@PathVariable("id") String _id)
    {  
-   studentServices.deleteStudent(id);
+   studentServices.deleteStudent(_id);
  
 }
 
-@GetMapping("/{id}")
-public Student getSudentsbyid(@PathVariable String id) {
-        return studentServices.getStudentByID(id);
-                
-    }
- 
-
 @RequestMapping("/search/{id}")
- public Student getStudents(@PathVariable(name="id")String studentid)
-// private Student getStudents(@PathVariable("id")String _id)
+private Student getStudents(@PathVariable(name="id")String studentid)
 {
   return studentServices.getStudentByID(studentid);
 }
